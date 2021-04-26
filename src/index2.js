@@ -12,6 +12,8 @@ let touchesUsed = false;
 let freezeCamera = false;
 let freezToggle;
 const speed = 0.03;
+const spread = 400;
+const legoShine = 0.3;
 init();
 animate();
 
@@ -109,17 +111,17 @@ function init() {
   container.addEventListener( 'touchend', onTouchEnd, false );
   container.addEventListener( 'click', onClick, false );
 
-  camera = new THREE.PerspectiveCamera( 65, window.innerWidth / window.innerHeight, 0.1, 10000 );
+  camera = new THREE.PerspectiveCamera( 75, window.innerWidth / window.innerHeight, 0.1, 10000 );
   camera.position.z = 10;
 
   scene = new THREE.Scene();
   scene.background = new THREE.Color( 0x001920 );
   const color = 0x000000; // white
   const near = 1000;
-  const far = 5000;
+  const far = 11000;
   scene.fog = new THREE.Fog(color, near, far);
 
-  const ambientLight = new THREE.AmbientLight( 0xffffff, 0.4 );
+  const ambientLight = new THREE.AmbientLight( 0xffffff, 0.3 );
   scene.add( ambientLight );
 
   const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.3 );
@@ -141,15 +143,16 @@ function init() {
   gridTextureLoader.load('gridtexture2.png', (tex) => {
     tex.wrapS = THREE.RepeatWrapping;
     tex.wrapT = THREE.RepeatWrapping;
-    tex.repeat.set( 10, 10 );
+    tex.repeat.set( 20, 20 );
     
-    const geometry = new THREE.PlaneGeometry(8000, 8000, 40, 40 );
+    const geometry = new THREE.PlaneGeometry(12000, 12000, 10, 10 );
     const material = new THREE.MeshPhongMaterial( {
       map: tex,
-      // emissiveMap: tex,
+      emissiveMap: tex,
       emissive: 0x555555,
       specularMap: tex,
       specular: 60,
+      specular: 0xffffff,
       color: 0xffffff,
       transparent: true,
     } );
@@ -168,7 +171,6 @@ function init() {
 
   });
 
-
   const loader = new TDSLoader( );
   loader.load( 'E-XX.3ds', function ( object ) {
       object.traverse( function ( child ) {
@@ -178,9 +180,9 @@ function init() {
               const id = Number(child.name.split('Piece')[1]);
               child.material.color.set(new Vector3(1.0, 1.0, 1.0));
               child.material.transparent = true;
-              child.material.specular.setScalar(0.5);
+              child.material.specular.setScalar(legoShine);
               
-              const position = new Vector3(Math.random() * 300, Math.random() * 300, id * 3.0  + Math.random() * 220);
+              const position = new Vector3(Math.random() * spread, Math.random() * spread, id * 3.0  + 0 * Math.random() * spread/2.0);
               child.userData.position = new Vector3(...child.position.toArray());
               // const rotation = Math.random() * 3;
               child.userData.rotationX = child.rotationX;
@@ -201,11 +203,12 @@ function init() {
       object.rotateY(0.4);
       const bbox = new THREE.Box3().setFromObject( object );
       const size = bbox.getSize( new THREE.Vector3() );
-      const radius = Math.max( size.x, Math.max( size.y, size.z ) ) * 0.7;
+      const radius = Math.max( size.x, Math.max( size.y, size.z ) ) * 0.13;
       controls.target0.copy( bbox.getCenter( new THREE.Vector3() ) );
-      controls.position0.set( - 1, 1, 1 ).multiplyScalar( radius ).add( controls.target0 );
+      controls.position0.set( -4, 4, -4 ).multiplyScalar( radius ).add( controls.target0 );
       controls.reset();
       object.position.x = 200; // horizontal
+      object.position.y = 10;
   } );
 
 
@@ -219,9 +222,9 @@ function init() {
               meshes[child.name] = child;
               const id = Number(child.name.split('Piece')[1]);
               child.material.color.set(new Vector3(1.0, 1.0, 1.0));
-              child.material.specular.setScalar(0.5);
+              child.material.specular.setScalar(legoShine);
 
-              const position = new Vector3(Math.random() * 300, Math.random() * 300, id * 3.0  + Math.random() * 220);
+              const position = new Vector3(Math.random() * spread, Math.random() * spread, id * 3.0  + Math.random() * spread/2.0);
               child.userData.position = new Vector3(...child.position.toArray());
               child.position.set(...position.toArray());
 
