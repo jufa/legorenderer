@@ -13,7 +13,7 @@ let freezeCamera = false;
 let freezToggle;
 const speed = 0.05;
 const spread = 200;
-const spreadById = 0;
+const spreadById = 1.5;
 const legoShine = 0.5;
 init();
 animate();
