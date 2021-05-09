@@ -341,7 +341,7 @@ function animate() {
       currentIntersect = intersects[0];
     }
 
-    directionalLight3.position.set( -500, 4000 * Math.sin(tick * 0.02), -1500 );
+    directionalLight3.position.set( 1000 * Math.cos(tick * 0.03), 1000 * Math.sin(tick * 0.03), -300 );
 
     if(clickPending) {
       clickPending = false;
