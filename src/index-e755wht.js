@@ -11,10 +11,10 @@ let tweeningObjects;
 let touchesUsed = false;
 let freezeCamera = false;
 let freezToggle;
-const speed = 0.05;
-const spread = 200;
-const spreadById = 1.5;
-const legoShine = 0.5;
+const speed = 0.08;
+const spread = 200; // 200;
+const spreadById = 1.5; // 1.5;
+const legoShine = 0.7;
 init();
 animate();
 
@@ -122,7 +122,7 @@ function init() {
   const far = 11000;
   scene.fog = new THREE.Fog(color, near, far);
 
-  const ambientLight = new THREE.AmbientLight( 0xffffff, 0.4 );
+  const ambientLight = new THREE.AmbientLight( 0xffffff, 0.2 );
   scene.add( ambientLight );
 
   const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.3 );
@@ -150,10 +150,10 @@ function init() {
     const material = new THREE.MeshPhongMaterial( {
       map: tex,
       emissiveMap: tex,
-      emissive: 0x555555,
+      emissive: 0x888888,
       specularMap: tex,
-      specular: 60,
       specular: 0xffffff,
+      shinniness: 0,
       color: 0xffffff,
       transparent: true,
     } );
@@ -196,10 +196,11 @@ function init() {
               if(Math.floor(child.material.color.b * 100) === 88){
                 child.material.color.g = 1.0;
               } else if (child.material.opacity < 0.9){
-                child.material.color.g = 1.0;
+                child.material.color.b = 0.75;
+                child.material.color.g = 0.5;
                 child.material.color.r = 0.0;
-                child.material.emissive.g = 0.15;
-                child.material.emissive.b = 0.35;
+                child.material.emissive.g = 0.55;
+                child.material.emissive.b = 0.75;
               }
               child.needsUpdate=true;
               child.needsUpdate;
@@ -243,11 +244,13 @@ function init() {
               if(Math.floor(child.material.color.b * 100) === 88){
                 child.material.color.g = 1.0;
               } else if (child.material.opacity < 0.9){
-                child.material.color.g = 0.55;
-                child.material.color.r = 1.0;
+                child.material.color.g = 0.0;
+                child.material.color.r = 0.0;
                 child.material.color.b = 0.0;
-                child.material.emissive.g = 0.15;
-                child.material.emissive.r = 0.55;
+                child.material.emissive.b = 0.0;
+                child.material.emissive.g = 0.35;
+                child.material.emissive.r = 1.0;
+                child.material.emissiveIntensity = 1.5;
               }
               child.needsUpdate=true;
               child.material.needsUpdate=true;
@@ -341,7 +344,7 @@ function animate() {
       currentIntersect = intersects[0];
     }
 
-    directionalLight3.position.set( 1000 * Math.cos(tick * 0.03), 1000 * Math.sin(tick * 0.03), -300 );
+    directionalLight3.position.set( 3000 * Math.cos(tick * 0.05), 3000 * Math.sin(tick * 0.05), -100 );
 
     if(clickPending) {
       clickPending = false;
