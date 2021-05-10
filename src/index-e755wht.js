@@ -342,6 +342,10 @@ function animate() {
       storedMaterial = intersects[0].object.material;
       intersects[0].object.material = highlightMaterial;
       currentIntersect = intersects[0];
+    } else {
+      if (storedMaterial) {
+        currentIntersect.object.material = storedMaterial;
+      }
     }
 
     directionalLight3.position.set( 3000 * Math.cos(tick * 0.05), 3000 * Math.sin(tick * 0.05), -100 );
