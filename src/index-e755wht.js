@@ -348,7 +348,7 @@ function animate() {
       }
     }
 
-    directionalLight3.position.set( 3000 * Math.cos(tick * 0.05), 3000 * Math.sin(tick * 0.05), -100 );
+    directionalLight3.position.set( 1000 * Math.cos(tick * 0.05), 1000 * Math.sin(tick * 0.05), -100 );
 
     if(clickPending) {
       clickPending = false;
