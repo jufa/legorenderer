@@ -122,15 +122,15 @@ function init() {
   const far = 11000;
   scene.fog = new THREE.Fog(color, near, far);
 
-  const ambientLight = new THREE.AmbientLight( 0xffffff, 0.2 );
+  const ambientLight = new THREE.AmbientLight( 0xffffff, 0.02 );
   scene.add( ambientLight );
 
-  const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.3 );
+  const directionalLight = new THREE.DirectionalLight( 0xffffff, 0.2 );
   directionalLight.position.set( - 2000, 400, 1000 );
   directionalLight.castShadow = false;
   scene.add( directionalLight );
 
-  const directionalLight2 = new THREE.DirectionalLight( 0xffffff, 0.3 );
+  const directionalLight2 = new THREE.DirectionalLight( 0xffffff, 0.2 );
   directionalLight2.position.set( 2000, 200, 1000 );
   directionalLight2.castShadow = false;
   scene.add( directionalLight2 );
