@@ -18,7 +18,7 @@ module.exports = merge(common, {
         { from: "E755W.3ds", to: "" },
         { from: "E755WHT.3ds", to: "" },
         { from: "gridtexture2.png", to: "" },
-        { from: "EX759mkIinstructions", to: "" },
+        { from: "EX759mkIinstructions.jpg", to: "" },
       ],
     }),
   ],
